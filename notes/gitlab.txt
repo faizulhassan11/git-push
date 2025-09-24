@@ -1,0 +1,52 @@
+GitLab Notes
+============
+
+1. GitLab Overview
+------------------
+- Web-based DevOps platform
+- Provides a complete CI/CD toolchain.
+- Supports both cloud-hosted (SaaS) and self-managed deployments.
+- Provides built-in CI/CD, security scanning, and Kubernetes integration.
+
+2. GitLab vs GitHub
+-------------------
+- Built-in CI/CD
+- Self-Hosting
+- Free Private Repositories
+- Built-in Container Registry
+- Security & Compliance
+- More DevOps Features
+
+3. Generate & Add SSH Key in GitLab
+-----------------------------------
+- Generate SSH key:  
+    ssh-keygen -t ed25519 -C "faiz@gmail.com"
+
+4. Push Code to GitLab | Groups & Projects
+------------------------------------------
+
+5. Create & Merge Branches in GitLab
+------------------------------------
+
+6. GitLab Runners
+-----------------
+- Execute CI/CD jobs in a pipeline.
+- Run scripts defined in .gitlab-ci.yml.
+- Can be shared, group, or specific runners.
+
+7. Shared vs. Group vs. Specific Runners
+----------------------------------------
+a. Shared Runners
+- Managed by GitLab, available for all projects.
+- Ideal for small to medium projects.
+- Used for public repositories by default.
+
+b. Group Runners
+- Available for all projects in a specific group.
+- Useful for teams working on multiple projects.
+- Controlled by group admins.
+
+c. Specific Runners
+- Dedicated to a single project only.
+- Best for private repositories and custom configurations.
+- Installed & managed by the project owner.

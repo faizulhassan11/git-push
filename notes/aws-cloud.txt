@@ -1,0 +1,78 @@
+# Introduction to Cloud Computing
+
+- Provides on-demand access to computing resources over the internet.
+- No need for physical hardware—resources.
+- Pay-as-you-go model.
+
+## Traditional vs Cloud Infrastructure
+
+### Traditional Infrastructure
+- Requires physical servers & data centers.
+- High upfront costs for hardware & maintenance.
+- Manual scalability (adding more servers takes time).
+- Risk of hardware failure.
+
+### Cloud Infrastructure
+- Uses virtualized cloud servers.
+- Pay only for what you use (subscription based).
+- Auto-scaling & instant resource provisioning.
+- High availability & redundancy.
+
+## Benefits of Cloud Computing
+- Scalability
+- Cost-effectiveness
+- Security
+- Flexibility
+- Disaster Recovery
+
+## Public, Private, and Hybrid Cloud
+
+- **Public Cloud** – Services are shared & hosted by third party providers (e.g., AWS, Azure, GCP).
+- **Private Cloud** – Exclusive cloud environment for a single organization, offering better control & security.
+- **Hybrid Cloud** – Combination of public & private cloud for a balanced approach.
+
+---
+
+# AWS vs Azure vs GCP
+
+## Amazon Web Service (AWS)
+- Cloud computing platform that provides on demand access to IT resources
+- No need for physical hardware
+- Pay-as-you-go model
+
+### AWS Key Features
+- Scalability
+- Security
+- Cost-effectiveness
+- High Availability
+- Disaster Recovery
+
+### Common AWS Services Overview
+- EC2 (Elastic Compute Cloud)
+- S3 (Simple Storage Service)
+- VPC (Virtual Private Cloud)
+- IAM (Identity & Access Management)
+- Lambda
+- RDS (Relational Database Service)
+
+### Important AWS Terminologies
+- **Region** – A geographical area (e.g., US-East, Asia-Pacific).
+- **Availability Zone (AZ)** – Data centers inside a region
+- **Edge Location** – Global caching servers for faster content delivery.
+
+---
+
+# AWS CLI
+
+- A tool that allows you to manage AWS services using command-line commands instead of the AWS Management Console.
+
+## Benefits of AWS CLI
+- Fast & Efficient
+- Automation
+- Multi-Service Control
+- Secure Access
+- Cross-Platform Integration
+
+---
+
+# AWS IAM User Creation & AWS CLI Configuration

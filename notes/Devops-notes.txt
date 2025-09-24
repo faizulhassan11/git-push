@@ -1,0 +1,45 @@
+Devops Notes
+============
+
+1. What is DevOps?
+------------------
+- DevOps combines "Development" and "Operations."
+- It is a culture and practice that bridges the gap between software development and IT operations.
+- The goal is faster delivery of software with high quality.
+
+2. Why is DevOps Important?
+---------------------------
+- Speeds up the software development process.
+- Improves collaboration between teams.
+- Ensures better product quality and faster issue resolution.
+
+3. DevOps Key Principles
+------------------------
+- Collaboration: Developers and IT teams work together.
+- Automation: Tasks like testing and deployment are automated.
+- Continuous Improvement: Regularly enhance and optimize processes.
+
+4. Development Without DevOps
+-----------------------------
+- Software updates took a long time to release.
+- Developers and IT teams worked in silos, causing miscommunication.
+- Manual processes led to more bugs and deployment failures.
+- Users’ feedback was not integrated quickly into updates.
+
+5. Companies Using DevOps
+-------------------------
+- Netflix, Amazon, and Google use DevOps to deliver software updates frequently and maintain high availability of services.
+
+6. Role of DevOps Engineer
+--------------------------
+- Bridges the gap between development and operations teams.
+- Ensures CI/CD pipelines are set up and working efficiently.
+- Manages infrastructure, automation, and monitoring.
+- Enhances system reliability, scalability, and performance.
+
+7. Skills Required for DevOps Engineer
+--------------------------------------
+- [Content not provided]
+
+
+

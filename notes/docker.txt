@@ -1,0 +1,335 @@
+Docker Notes
+============
+
+1. What is Docker?
+------------------
+- Containerization platform
+- Allows you to package applications with all dependencies into isolated environments called containers.
+
+2. Problem Without Docker
+-------------------------
+- “It works on my machine but not on yours”
+- “Applications break when moved from development to production”
+
+3. Solution: Docker
+-------------------
+- Packages everything inside a container, ensuring consistency across all environments.
+- Runs on any system without worrying about dependencies, OS versions, or conflicts.
+- Faster deployment as containers start instantly compared to traditional virtual machines.
+- Makes scaling applications easy by running multiple containers as microservices.
+
+4. Docker Images
+----------------
+- Docker Image is a blueprint (template)
+- Contains everything needed to run an application.
+- Images are Immutable.
+- Stored in Docker Hub or private registries for reuse.
+
+5. Docker Containers
+--------------------
+- Docker Container is a running instance of a Docker Image.
+- Isolated, lightweight, and portable environment where applications run.
+- Can be started, stopped, and deleted
+
+6. Real-Life Example
+--------------------
+- dockerfile  -> docker image  -> docker container
+- build     ->        run
+
+7. Docker Hub vs Docker Desktop
+-------------------------------
+a. Docker Hub
+    - Official cloud-based repository for container images.
+    - Provides pre-built images.
+    - Developers can push and pull images
+
+b. Docker Desktop
+    - GUI-based tool to run Docker easily
+    - Comes with Docker Engine, CLI, and Kubernetes support.
+    - Helps in building, running, and managing containers.
+
+8. Base (Parent) Image
+----------------------
+- Starting point for building a Docker Image.
+- Can be official images.
+- A Dockerfile inherits from a base image using FROM keyword.
+
+9. How to Pull & Run Node.js Image in Docker
+--------------------------------------------
+Commands:
+     docker pull node
+     docker run -it node
+     docker run -it node /bin/bash
+
+10. Create a Docker Image for a Node.js App Using Dockerfile
+------------------------------------------------------------
+Dockerfile:
+     FROM node:latest
+     COPY . .
+     RUN npm install
+     EXPOSE 4000
+     CMD [ "node", "index.js" ]
+
+Commands:
+     docker build -t my-app .
+     docker images
+
+11. Run Docker Image Inside a Container
+---------------------------------------
+(Section header only, no content)
+
+12. .dockerignore in Docker | Ignore Files & Folders
+----------------------------------------------------
+.dockerignore:
+     node_modules
+     script.js
+     *.php
+
+Create & Manage Multiple Docker Images
+--------------------------------------
+- Build image:  
+     docker build -t my-app .
+- Build image with version:  
+     docker build -t my-app:v2 .
+- Remove unused images and containers:  
+     docker system prune -a
+
+Volumes in Docker
+-----------------
+- Volumes are storage mechanisms, stored separately from the container’s filesystem.
+- Changes made in the local project directory are automatically reflected inside the container.
+
+How to Create & Use Volumes with Containers
+-------------------------------------------
+- Install nodemon:  
+     npm i nodemon
+- Add script to package.json:
+     scripts:{
+          "dev":"nodemon --legacy-watch index.js"
+     }
+- Dockerfile example:
+     FROM node:latest
+     RUN npm install -g nodemon
+     WORKDIR /app
+     COPY . .
+     RUN npm install
+     EXPOSE 4000
+     CMD [ "node", "run", "dev" ]
+- Build image:  
+    - Build image:  
+        docker build -t my-app .
+    - List images:  
+        docker images
+    - Run container with volume:
+        docker run --name my-container -p 4000:4000 --rm -v "C:/User/ESHOP/Node App:/app" my-node-app
+        docker run --name my-container -p 4000:4000 -v "C:/User/ESHOP/Node App:/app" my-node-app
+
+    Docker Compose
+    --------------
+    - Tool for managing multiple containers easily.
+    - Uses a YAML configuration file for defining multi-container setups.
+    - YAML syntax (Yet Another Markup Language).
+
+    compose.yaml example:
+        services:
+         img:
+          build: .
+          container_name: my_container
+          ports:
+            - 4000:4000
+
+    - Start containers:  
+        docker compose up
+
+    Uploading Image to Docker Hub
+    -----------------------------
+    - Create a repository on Docker Hub.
+    - Build image:  
+        docker build -t faiz/my-node-app .
+    - Push image:  
+        docker push faiz/my-node-app
+
+    Hosting Image on Play with Docker
+    ---------------------------------
+    - Platform to run live images for 4 hours.
+    - Create a repository on Docker Hub.
+    - Build image for specific platform:  
+        docker buildx build --platform linux/amd64 -t faiz/my-node-app .
+    - Push image:  
+        docker push faiz/my-node-app
+    - On Play with Docker instance terminal:
+        docker pull faiz/my-node-app
+        docker run -p 4000:4000 faiz/my-node-app
+
+    Setup & Run GitLab on Docker
+    ----------------------------
+    - Pull official GitLab image:  
+        docker pull gitlab/gitlab-ce
+    - Run GitLab container:  
+        docker run -p 8000:80 gitlab/gitlab-ce
+    - Access GitLab:  
+        localhost:8000/users/sign_in
+    - Show image and container details:  
+        docker ps -l
+    - Get initial root password:  
+        docker exec -it <container_id> cat /etc/gitlab/initial_root_password
+    - Use username "root" to login locally.
+
+    GitLab Server with Docker Compose
+    ---------------------------------
+
+        version: '3.8'
+        services:
+         gitlab-server:
+          image: 'gitlab/gitlab-ce'
+          container_name: my-gitlab-server
+          ports:
+           - '8000:80'
+          environment:
+           GITLAB_OMNIBUS_CONFIG: |
+            gitlab_rails['initial_root_password'] = 'F@iz12345'
+            puma['worker_processes'] = 0
+
+run this command:
+
+docker compose up  
+
+to stop
+docker compose down  
+
+GitLab Server with Docker Volumes for Data Persistence
+
+    version: '3.8'
+        services:
+         gitlab-server:
+          image: 'gitlab/gitlab-ce'
+          container_name: my-gitlab-server
+          ports:
+           - '8000:80'
+          environment:
+           GITLAB_OMNIBUS_CONFIG: |
+            gitlab_rails['initial_root_password'] = 'F@iz12345'
+            puma['worker_processes'] = 0
+
+          volumes:
+           - ./gitlab/config:/etc/gitlab
+           - ./gitlab/logs:/var/log/gitlab
+           - ./gitlab/data:/var/opt/gitlab
+
+docker compose up
+
+GitLab Server vs GitLab Runners
+
+ GitLab Server
+
+  A Web-based Git repository for
+ managing code, issues, and CI/CD
+ pipelines.
+
+  GitLab Runner
+
+   A lightweight agent that runs CI/CD
+ jobs from GitLab Server.
+
+  It listens to GitLab Server, executes
+ jobs, and sends results back.
+
+  Runners can be shared (used by all
+ projects) or specific (used by one
+ project only).
+
+ Register GitLab Runner with GitLab Server on Docker
+    
+    
+    version: '3.8'
+        services:
+         gitlab-server:
+          image: 'gitlab/gitlab-ce'
+          container_name: my-gitlab-server
+          hostname: my-gitlab-server
+          restart: always
+          ports:
+           - '8000:80'
+          environment:
+           GITLAB_OMNIBUS_CONFIG: |
+            gitlab_rails['initial_root_password'] = 'F@iz12345'
+            puma['worker_processes'] = 0
+
+          volumes:
+           - ./gitlab/config:/etc/gitlab
+           - ./gitlab/logs:/var/log/gitlab
+           - ./gitlab/data:/var/opt/gitlab
+
+         gitlab-runner:
+          image: 'gitlab/gitlab-runner:latest'
+          container_name: my-gitlab-runner
+          restart: always
+           depends_on:
+            - gitlab-server
+           volumes:
+            - ./gitlab-runner/config:/etc/gitlab-runner
+            - /var/run/docker.sock:/var/run/docker.sock
+            privileged: true
+
+    docker compose up -d
+
+    create repository on gitlab server 
+    go to admin -> ci/cd 
+    close all runners 
+    copy registration token
+
+    docker exec -it my-gitlab-runner gitlab-runner register
+
+    gitlab instance url
+
+    register token
+
+    docker image
+
+    alpine:latest
+
+    restart runner
+
+    docker restart my-gitlab-runner
+
+    docker exec -it my-gitlab-runner gitlab-runner list
+
+
+
+Fix GitLab External URL in Docker Compose
+
+    version: '3.8'
+        services:
+         gitlab-server:
+          image: 'gitlab/gitlab-ce'
+          container_name: my-gitlab-server
+          hostname: my-gitlab-server
+          restart: always
+          ports:
+           - '8000:80'
+          environment:
+           GITLAB_OMNIBUS_CONFIG: |
+            gitlab_rails['initial_root_password'] = 'F@iz12345'
+            puma['worker_processes'] = 0
+            external_url 'http://my-gitlab-server'
+
+          volumes:
+           - ./gitlab/config:/etc/gitlab
+           - ./gitlab/logs:/var/log/gitlab
+           - ./gitlab/data:/var/opt/gitlab
+
+         gitlab-runner:
+          image: 'gitlab/gitlab-runner:latest'
+          container_name: my-gitlab-runner
+          restart: always
+           depends_on:
+            - gitlab-server
+           volumes:
+            - ./gitlab-runner/config:/etc/gitlab-runner
+            - /var/run/docker.sock:/var/run/docker.sock
+            privileged: true
+
+
+    docker compose down
+
+    docker compose up
